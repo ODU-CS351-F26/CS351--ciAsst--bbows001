@@ -17,3 +17,6 @@ jobs:
       - name: Build and test
         working-directory: .
         run: ./gradlew build 
+      - name: Deploy Reports for Website
+        working-directory: .
+        run: ./gradlew deployReports
