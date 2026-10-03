@@ -7,16 +7,26 @@ jobs:
       runs-on: ubuntu-latest         
       steps:    
       - uses: actions/checkout@v4
+
       - name: Set up JDK 21
         uses: actions/setup-java@v6        
         with:
           java-version: '21'
           distribution: 'temurin'
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew              
+
       - name: Build and test
         working-directory: .
         run: ./gradlew build 
-      - name: Deploy Reports for Website
+
+      - name: Generate Reports for Website
         working-directory: .
-        run: ./gradlew deployReports
+        run: ./gradlew reports
+      
+      - name: Update Website with Reports
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build/reports
