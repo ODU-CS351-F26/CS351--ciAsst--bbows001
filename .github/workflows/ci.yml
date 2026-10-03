@@ -25,8 +25,8 @@ jobs:
         working-directory: .
         run: |
           eval $(ssh-agent -s -t 600)
-          ssh-add <(echo "${{secrets.REPORTS_SSH_KEY }}")
-          git config user.email "bbows001@odu.edu"
-          git config user.name "Brian Bowser"
+          ssh-add <(echo "${{ secrets.REPORTS_SSH_KEY }}")
+          git config --global user.email "bbows001@odu.edu"
+          git config --global user.name "Project Actions"
           ./gradlew deployReports
 
