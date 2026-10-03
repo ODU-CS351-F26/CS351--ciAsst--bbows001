@@ -53,13 +53,8 @@ task copyDocs(type: Copy, dependsOn: 'javadoc') {
 	into 'build/reports'
 }
 
-task copyPmd(type: Copy, dependsOn: 'pmdMain') {
-    from 'build/reports/pmd/'
-    into 'build/reports/pmd'
-}
-
 // Main reports task
-task reports(dependsOn:[ 'build', 'copyHtml', 'copyDocs', 'copyPmd']){
+task reports(dependsOn:[ 'build', 'copyHtml', 'copyDocs', 'pmdMain']){
 }
 
 dependencies {
