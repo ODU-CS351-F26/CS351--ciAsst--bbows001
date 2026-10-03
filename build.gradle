@@ -2,6 +2,7 @@ plugins {
    id 'java'
    id 'application'
    id 'org.ajoberstar.git-publish' version '4.2.0'
+   id 'pmd' // Adding for PMD Static Code Analysis
 }
 
 repositories {
@@ -13,6 +14,15 @@ java {
     sourceCompatibility = JavaVersion.toVersion(11)
     targetCompatibility = JavaVersion.toVersion(11)
 }
+
+// Configuration for PMD
+pmd {
+    ignoreFailures = true
+    consoleOutput = false
+    toolVersion = "7.16.0"
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"] 
+}
+pmdTest.enabled = false
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
@@ -43,8 +53,13 @@ task copyDocs(type: Copy, dependsOn: 'javadoc') {
 	into 'build/reports'
 }
 
+task copyPmd(type: Copy, dependsOn: 'pmdMain') {
+    from 'build/reports/pmd/'
+    into 'build/reports/pmd'
+}
+
 // Main reports task
-task reports(dependsOn:[ 'build', 'copyHtml', 'copyDocs']){
+task reports(dependsOn:[ 'build', 'copyHtml', 'copyDocs', 'copyPmd']){
 }
 
 dependencies {
