@@ -57,7 +57,7 @@ dependencies {
 gitPublishCopy.dependsOn reports
 gitPublish{
     // Set gitHub Repo
-    repoUri='git@github.com:ODU-CS351-F26/CS351--exercise-documentation--bbows001.git'
+    repoUri='https://odu-cs351-f26.github.io/CS351--ciAsst--bbows001/'
 
     // Location the plugin clones repo temporarily
     branch='gh-pages'
