@@ -21,12 +21,12 @@ jobs:
         working-directory: .
         run: ./gradlew build 
 
-      - name: Generate Reports for Website
+      - name: Generate Reports for Website and Deploy
         working-directory: .
-        run: ./gradlew reports
-      
-      - name: Update Website with Reports
-        uses: JamesIves/github-pages-deploy-action@v4.3.4
-        with:
-          branch: gh-pages
-          folder: build/reports
+        run: |
+          eval $(ssh-agent -s -t 600)
+          ssh-add <(echo "${{secrets.REPORTS_SSH_KEY }}")
+          git config user.email "bbows001@odu.edu"
+          git config user.name "Brian Bowser"
+          ./gradlew deployReports
+
